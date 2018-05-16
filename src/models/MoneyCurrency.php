@@ -5,14 +5,12 @@
  * @license https://cms.skeeks.com/license/
  * @author Semenov Alexander <semenov@skeeks.com>
  */
+
 namespace skeeks\cms\money\models;
 
-use skeeks\cms\query\CmsActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
- * Class Currency
- * @package skeeks\modules\cms\money\models
+ * @author Semenov Alexander <semenov@skeeks.com>
  */
 class MoneyCurrency extends \skeeks\cms\base\ActiveRecord
 {
@@ -22,14 +20,6 @@ class MoneyCurrency extends \skeeks\cms\base\ActiveRecord
     public static function tableName()
     {
         return '{{%money_currency}}';
-    }
-
-    /**
-     * @return CmsActiveQuery
-     */
-    public static function find()
-    {
-        return new CmsActiveQuery(get_called_class());
     }
 
     /**
@@ -54,13 +44,13 @@ class MoneyCurrency extends \skeeks\cms\base\ActiveRecord
     public function attributeLabels()
     {
         return array_merge(parent::attributeLabels(), [
-            'id' => \Yii::t('skeeks/money', 'ID'),
-            'code' => \Yii::t('skeeks/money', "Currency"),
-            'active' => \Yii::t('skeeks/money', 'Active'),
-            'course' => \Yii::t('skeeks/money', "Rate"),
-            'name' => \Yii::t('skeeks/money', "Name"),
+            'id'        => \Yii::t('skeeks/money', 'ID'),
+            'code'      => \Yii::t('skeeks/money', "Currency"),
+            'active'    => \Yii::t('skeeks/money', 'Active'),
+            'course'    => \Yii::t('skeeks/money', "Rate"),
+            'name'      => \Yii::t('skeeks/money', "Name"),
             'name_full' => \Yii::t('skeeks/money', "Full name"),
-            'priority' => \Yii::t('skeeks/money', 'Priority'),
+            'priority'  => \Yii::t('skeeks/money', 'Priority'),
         ]);
     }
 

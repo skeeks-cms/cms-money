@@ -8,16 +8,14 @@
 
 namespace skeeks\cms\money;
 
-use yii\base\Component;
-use yii\helpers\ArrayHelper;
+use yii\base\BaseObject;
 
 /**
  * new Currency('RUB');
- * Currency::getInstance('RUB')
  *
  * @author Semenov Alexander <semenov@skeeks.com>
  */
-class Currency extends Component
+class Currency extends BaseObject
 {
     /**
      * @var array
@@ -1154,31 +1152,7 @@ class Currency extends Component
     /**
      * @var static[]
      */
-    //static public $registeredCurrency = [];
-
-    /**
-     * @param sting|static $currency
-     * @return static
-     */
-    /*static public function getInstance($currency)
-    {
-        if (!$currency instanceof static && !is_string($currency)) {
-            throw new \InvalidArgumentException('$currency must be an object of type Currency or a string');
-        }
-
-        if (is_string($currency)) {
-            if (isset(static::$registeredCurrency[$currency])) {
-                return static::$registeredCurrency[$currency];
-            } else {
-                $currency = new static($currency);
-                static::$registeredCurrency[$currency->code] = $currency;
-                return $currency;
-            }
-
-        }
-
-        return $currency;
-    }*/
+    static public $registeredCurrency = [];
 
     /**
      * Currency constructor.
@@ -1191,8 +1165,6 @@ class Currency extends Component
 
         parent::__construct($options);
     }
-
-
     public function init()
     {
         if (isset(static::$currencies[$this->code])) {
@@ -1206,15 +1178,13 @@ class Currency extends Component
             }
         }
     }
-
     /**
      * @return string
      */
     public function __toString()
     {
-        return (string) $this->code;
+        return (string)$this->code;
     }
-
     /**
      * @param string|static $currency
      * @return bool
@@ -1223,6 +1193,28 @@ class Currency extends Component
     {
         $currency = static::getInstance($currency);
         return (bool)($currency->code == $this->code);
+    }
+    /**
+     * @param sting|static $currency
+     * @return Currency|static
+     */
+    static public function getInstance($currency)
+    {
+        if (!$currency instanceof static && !is_string($currency)) {
+            throw new \InvalidArgumentException('$currency must be an object of type Currency or a string');
+        }
+
+        if (is_string($currency)) {
+            if (isset(static::$registeredCurrency[$currency])) {
+                return static::$registeredCurrency[$currency];
+            } else {
+                $currency = new static($currency);
+                static::$registeredCurrency[$currency->code] = $currency;
+                return $currency;
+            }
+        }
+
+        return $currency;
     }
 
 }

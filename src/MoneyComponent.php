@@ -17,8 +17,18 @@ use skeeks\cms\base\Component;
  */
 class MoneyComponent extends Component
 {
+    /**
+     * @return string
+     */
     public function getCurrencyCode()
     {
         return \Yii::$app->formatter->currencyCode;
     }
+
+    /**
+     * Базовая валюта относительно которой считается курс
+     *
+     * @var string
+     */
+    public $baseCurrencyCode = "RUB";
 }
