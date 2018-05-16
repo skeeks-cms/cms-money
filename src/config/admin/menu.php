@@ -19,7 +19,7 @@ return [
 
                 'items' => [
                     [
-                        "label" => \Yii::t('skeeks/money/meny', 'Currency'),
+                        "label" => \Yii::t('skeeks/money', 'Currencies'),
                         "url"   => ["money/admin-currency"],
                         "img"   => ['\skeeks\cms\money\assets\Asset', 'images/money_16_16.png'],
                     ],
