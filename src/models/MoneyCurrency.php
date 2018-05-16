@@ -49,9 +49,9 @@ class MoneyCurrency extends \skeeks\cms\base\ActiveRecord
             [['code'], 'unique'],
             [['code'], 'validateCode'],
             [['priority'], 'integer'],
-            [['active'], 'string'],
+            [['is_active'], 'boolean'],
             [['course'], 'number'],
-            [['name', 'name_full'], 'safe'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -63,10 +63,9 @@ class MoneyCurrency extends \skeeks\cms\base\ActiveRecord
         return array_merge(parent::attributeLabels(), [
             'id'        => \Yii::t('skeeks/money', 'ID'),
             'code'      => \Yii::t('skeeks/money', "Currency"),
-            'active'    => \Yii::t('skeeks/money', 'Active'),
+            'is_active'    => \Yii::t('skeeks/money', 'Active'),
             'course'    => \Yii::t('skeeks/money', "Rate"),
             'name'      => \Yii::t('skeeks/money', "Name"),
-            'name_full' => \Yii::t('skeeks/money', "Full name"),
             'priority'  => \Yii::t('skeeks/money', 'Priority'),
         ]);
     }

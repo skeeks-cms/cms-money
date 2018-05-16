@@ -31,4 +31,9 @@ class MoneyComponent extends Component
      * @var string
      */
     public $baseCurrencyCode = "RUB";
+
+    public $currenciesData = [
+
+    ];
+
 }

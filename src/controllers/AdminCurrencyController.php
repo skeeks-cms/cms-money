@@ -42,7 +42,7 @@ class AdminCurrencyController extends BackendModelStandartController
                 ],
                 'grid'    => [
                     'defaultOrder'   => [
-                        'active'   => SORT_DESC,
+                        'is_active'   => SORT_DESC,
                         'priority' => SORT_ASC,
                     ],
                     'visibleColumns' => [
@@ -52,12 +52,14 @@ class AdminCurrencyController extends BackendModelStandartController
                         'code',
                         'name',
                         'course',
-                        'active',
+                        'is_active',
                         'priority',
                     ],
                     'columns'        => [
-                        'active' => [
+                        'is_active' => [
                             'class' => BooleanColumn::class,
+                            'falseValue' => 0,
+                            'trueValue' => 1,
                         ],
                     ],
                 ],
@@ -73,10 +75,14 @@ class AdminCurrencyController extends BackendModelStandartController
 
             "activate-multi" => [
                 'class' => BackendModelMultiActivateAction::class,
+                'attribute' => 'is_active',
+                'value' => 1
             ],
 
             "deactivate-multi" => [
                 'class' => BackendModelMultiDeactivateAction::class,
+                'attribute' => 'is_active',
+                'value' => 0
             ],
 
 
@@ -102,11 +108,8 @@ class AdminCurrencyController extends BackendModelStandartController
         return [
             'code',
             'name',
-            'name_full',
-            'active'   => [
+            'is_active'   => [
                 'class'      => BoolField::class,
-                'trueValue'  => "Y",
-                'falseValue' => "N",
             ],
             'course',
             'priority',
@@ -122,8 +125,7 @@ class AdminCurrencyController extends BackendModelStandartController
                 if (!$currencyModel = Currency::find()->where(['code' => $code])->one()) {
                     $currencyModel = new Currency([
                         'code' => $code,
-                        'active' => Cms::BOOL_N,
-                        'name_full' => $currency->getDisplayName(),
+                        'is_active' => 0,
                         'name' => $currency->getDisplayName(),
                     ]);
 
