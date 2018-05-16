@@ -8,6 +8,10 @@
 
 namespace skeeks\cms\money\models;
 
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
+
 
 /**
  * @author Semenov Alexander <semenov@skeeks.com>
@@ -23,11 +27,24 @@ class MoneyCurrency extends \skeeks\cms\base\ActiveRecord
     }
 
     /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+
+        ArrayHelper::remove($behaviors, TimestampBehavior::class);
+        ArrayHelper::remove($behaviors, BlameableBehavior::class);
+
+        return $behaviors;
+    }
+
+    /**
      * @inheritdoc
      */
     public function rules()
     {
-        return array_merge(parent::rules(), [
+        return [
             [['code'], 'required'],
             [['code'], 'unique'],
             [['code'], 'validateCode'],
@@ -35,7 +52,7 @@ class MoneyCurrency extends \skeeks\cms\base\ActiveRecord
             [['active'], 'string'],
             [['course'], 'number'],
             [['name', 'name_full'], 'safe'],
-        ]);
+        ];
     }
 
     /**

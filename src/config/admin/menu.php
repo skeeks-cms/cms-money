@@ -13,7 +13,7 @@ return [
 
         'items' => [
             [
-                "label"    => \Yii::t('skeeks/money/meny', 'Currency'),
+                "label"    => \Yii::t('skeeks/money', 'Currencies'),
                 "img"      => ['\skeeks\cms\money\assets\Asset', 'images/money_16_16.png'],
                 'priority' => 600,
 

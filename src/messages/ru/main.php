@@ -1,6 +1,7 @@
 <?php
 return [
     'Currency' => 'Валюта',
+    'Currencies' => 'Валюты',
     'Functions' => 'Функции для работы с',
     'Main' => 'Основное',
     'Currency and Money' => 'Валюты и деньги',
