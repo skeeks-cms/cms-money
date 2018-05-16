@@ -11,6 +11,8 @@ namespace skeeks\cms\money;
 use yii\base\BaseObject;
 
 /**
+ * new Money(10, 'RUB');
+ *
  * @property string   $amount
  * @property Currency $currency
  *
@@ -19,7 +21,7 @@ use yii\base\BaseObject;
 class Money extends BaseObject
 {
     /**
-     * @var mixed
+     * @var string
      */
     private $_amount;
 
@@ -36,12 +38,12 @@ class Money extends BaseObject
      */
     public function __construct($amount, $currency)
     {
-        $this->_amount = (string)$amount;
-        $this->_currency = Currency::getInstance($currency);
+        $this
+            ->setAmount($amount)
+            ->setCurrency($currency);
 
         parent::__construct([]);
     }
-
     /**
      * @return string
      */
@@ -49,7 +51,15 @@ class Money extends BaseObject
     {
         return $this->_amount;
     }
-
+    /**
+     * @param string|int|float $amount
+     * @return $this
+     */
+    public function setAmount($amount)
+    {
+        $this->_amount = trim((string)$amount);
+        return $this;
+    }
     /**
      * @return Currency
      */
@@ -58,15 +68,26 @@ class Money extends BaseObject
         return $this->_currency;
     }
     /**
+     * @param Currency|string $currency
+     * @return $this
+     */
+    public function setCurrency($currency)
+    {
+        $this->_currency = Currency::getInstance($currency);
+        return $this;
+    }
+    /**
      * @return string
      */
     public function __toString()
     {
         return (string)$this->format();
     }
+
     /**
      * @param array $options
      * @param array $textOptions
+     *
      * @return string
      */
     public function format($options = [], $textOptions = [])
@@ -74,16 +95,43 @@ class Money extends BaseObject
         return \Yii::$app->formatter->asCurrency($this->_amount, $this->_currency->code, $options, $textOptions);
     }
 
+    /**
+     * TODO: добавить проверки когда отключена bcadd
+     *
+     * @param Money $other
+     * @return $this
+     */
     public function add(self $other)
     {
         //$other = $other->convertToCurrency($this->currency);
-
         //$this->assertSameCurrency($this, $other);
+        if (function_exists("bcadd")) {
+            $this->_amount = bcadd($this->amount, $other->amount);
+        } else {
+            $this->setAmount(
+                ((float)$this->amount + (float)$other->amount)
+            );
+        }
 
-        $value = $this->amount + $other->getAmount();
+        return $this;
+    }
 
-        $this->assertIsFloat($value);
+    /**
+     * TODO: добавить проверки когда отключена bcadd
+     *
+     * @param Money $other
+     * @return $this
+     */
+    public function sub(self $other)
+    {
+        if (function_exists("bcsub")) {
+            $this->_amount = bcsub($this->amount, $other->amount);
+        } else {
+            $this->setAmount(
+                ((float)$this->amount - (float)$other->amount)
+            );
+        }
 
-        return $this->newMoney($value);
+        return $this;
     }
 }

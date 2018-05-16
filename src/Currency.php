@@ -1165,6 +1165,7 @@ class Currency extends BaseObject
 
         parent::__construct($options);
     }
+
     public function init()
     {
         if (isset(static::$currencies[$this->code])) {
@@ -1178,6 +1179,7 @@ class Currency extends BaseObject
             }
         }
     }
+
     /**
      * @return string
      */
@@ -1185,6 +1187,7 @@ class Currency extends BaseObject
     {
         return (string)$this->code;
     }
+
     /**
      * @param string|static $currency
      * @return bool
@@ -1194,24 +1197,27 @@ class Currency extends BaseObject
         $currency = static::getInstance($currency);
         return (bool)($currency->code == $this->code);
     }
+
     /**
      * @param sting|static $currency
      * @return Currency|static
      */
     static public function getInstance($currency)
     {
-        if (!$currency instanceof static && !is_string($currency)) {
+        if ($currency instanceof $currency) {
+            return $currency;
+        }
+
+        if (!is_string($currency)) {
             throw new \InvalidArgumentException('$currency must be an object of type Currency or a string');
         }
 
-        if (is_string($currency)) {
-            if (isset(static::$registeredCurrency[$currency])) {
-                return static::$registeredCurrency[$currency];
-            } else {
-                $currency = new static($currency);
-                static::$registeredCurrency[$currency->code] = $currency;
-                return $currency;
-            }
+        if (isset(static::$registeredCurrency[$currency])) {
+            return static::$registeredCurrency[$currency];
+        } else {
+            $currency = new static($currency);
+            static::$registeredCurrency[$currency->code] = $currency;
+            return $currency;
         }
 
         return $currency;
