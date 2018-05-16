@@ -1,0 +1,38 @@
+{
+    "name": "skeeks/cms-money",
+    "description": "Module for working with money and currency",
+    "keywords": ["module", "cms", "skeeks", "sx", "app", "yii2", "money"],
+    "homepage": "http://www.skeeks.com/",
+    "type": "yii2-extension",
+    "license": "GPL-3.0+",
+    "support": {
+        "issues": "https://www.skeeks.com/",
+        "source": "https://github.com/skeeks-cms/cms-money"
+    },
+    "authors": [
+        {
+            "name": "Semenov Alexander",
+            "email": "semenov@skeeks.com"
+        }
+    ],
+    "require": {
+        "skeeks/cms": "~5.0 || dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "skeeks\\cms\\money\\": "src/"
+        }
+    },
+    "extra": {
+        "config-plugin": {
+            "web": [
+                "src/config/common.php",
+                "src/config/web.php"
+            ],
+            "console": [
+                "src/config/common.php",
+                "src/config/console.php"
+            ]
+        }
+    }
+}
