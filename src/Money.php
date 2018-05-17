@@ -11,8 +11,6 @@ namespace skeeks\cms\money;
 use yii\base\BaseObject;
 
 /**
- * new Money(10, 'RUB');
- *
  * @property string   $amount
  * @property Currency $currency
  *
@@ -114,6 +112,17 @@ class Money extends BaseObject
         return $this;
     }
 
+
+    /**
+     * @param Money $other
+     * @return $this
+     */
+    public function subtract(self $other)
+    {
+        return $this->sub($number);
+    }
+
+
     /**
      * @param Money $other
      * @return $this
@@ -133,6 +142,16 @@ class Money extends BaseObject
         return $this;
     }
 
+
+    /**
+     * @param Money $other
+     * @return $this
+     */
+    public function subtract(self $other)
+    {
+        return $this->sub($number);
+    }
+
     /**
      * @param $number
      * @return $this
@@ -150,6 +169,14 @@ class Money extends BaseObject
         return $this;
     }
 
+    /**
+     * @param $number
+     * @return $this
+     */
+    public function multiply($number)
+    {
+        return $this->mul($number);
+    }
 
     /**
      * @param $currencyTo
