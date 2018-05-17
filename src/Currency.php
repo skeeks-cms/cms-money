@@ -1190,7 +1190,7 @@ class Currency extends BaseObject
      */
     static public function getInstance($currency)
     {
-        if ($currency instanceof $currency) {
+        if ($currency instanceof Currency) {
             return $currency;
         }
 
@@ -1274,6 +1274,27 @@ class Currency extends BaseObject
             return (float)$this->model->course;
         }
 
-        return (float)ArrayHelper::getValue($this->_baseData, 'course', 1);
+        return (float)ArrayHelper::getValue($this->_baseData, 'base_course', 1);
+    }
+
+    /**
+     * Обратный курс по отношению к другой валюте
+     *
+     * @param Currency|string $currencyTo
+     * @return float|null
+     */
+    public function getCrossCourse($currencyTo)
+    {
+        if ($this->isSame($currencyTo)) {
+            return 1;
+        }
+
+        $currencyTo = static::getInstance($currencyTo);
+
+        if ($this->baseCourse && $currencyTo->baseCourse) {
+            return $this->baseCourse / $currencyTo->baseCourse;
+        }
+
+        return 1;
     }
 }

@@ -96,15 +96,13 @@ class Money extends BaseObject
     }
 
     /**
-     * TODO: добавить проверки когда отключена bcadd
-     *
      * @param Money $other
      * @return $this
      */
     public function add(self $other)
     {
-        //$other = $other->convertToCurrency($this->currency);
-        //$this->assertSameCurrency($this, $other);
+        $other->convertToCurrency($this->currency);
+
         if (function_exists("bcadd")) {
             $this->_amount = bcadd($this->amount, $other->amount);
         } else {
@@ -117,13 +115,13 @@ class Money extends BaseObject
     }
 
     /**
-     * TODO: добавить проверки когда отключена bcadd
-     *
      * @param Money $other
      * @return $this
      */
     public function sub(self $other)
     {
+        $other->convertToCurrency($this->currency);
+
         if (function_exists("bcsub")) {
             $this->_amount = bcsub($this->amount, $other->amount);
         } else {
@@ -133,5 +131,41 @@ class Money extends BaseObject
         }
 
         return $this;
+    }
+
+    /**
+     * @param $number
+     * @return $this
+     */
+    public function mul($number)
+    {
+        if (function_exists("bcmul")) {
+            $this->_amount = bcsub($this->amount, (string) $number);
+        } else {
+            $this->setAmount(
+                ((float)$this->amount * (float)$number)
+            );
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * @param $currencyTo
+     * @return $this
+     */
+    public function convertToCurrency($currencyTo)
+    {
+        $currencyTo = Currency::getInstance($currencyTo);
+        $currency = $this->_currency;
+
+        if ($crossCourse = $currency->getCrossCourse($currencyTo)) {
+            $this->mul($crossCourse);
+            $this->_currency = $currencyTo;
+            return $this;
+        } else {
+            throw new InvalidArgumentException(\Yii::t('skeeks/money', 'Unable to get the cross rate for the currency') . ' ' . $currencyTo->code);
+        }
     }
 }

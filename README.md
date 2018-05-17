@@ -9,7 +9,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist skeeks/cms-money "*"
+php composer.phar require --prefer-dist skeeks/cms-module-money "*"
 ```
 
 or add
@@ -26,14 +26,14 @@ Configuration app
 'components' =>
 [
  'money' => [
-     'class'         => 'skeeks\modules\cms\money\components\money\Money',
+     'class'         => 'skeeks\cms\money\components\money\Money',
  ],
  'i18n' => [
      'translations' =>
      [
          'skeeks/money' => [
              'class'             => 'yii\i18n\PhpMessageSource',
-             'basePath'          => '@skeeks/modules/cms/money/messages',
+             'basePath'          => '@skeeks/cms/money/messages',
              'fileMap' => [
                  'skeeks/money' => 'main.php',
              ],
@@ -44,7 +44,7 @@ Configuration app
 'modules' =>
 [
     'money' => [
-        'class'         => 'skeeks\modules\cms\money\Module',
+        'class'         => 'skeeks\cms\money\Module',
     ]
 ]
 
@@ -71,12 +71,11 @@ Configuration app
 Сразу пример:
 
 ```
-use \skeeks\modules\cms\money\Money;
-use \skeeks\modules\cms\money\IntlFormatter;
+use \skeeks\cms\money\Money;
 
-$money  = Money::fromString('10', "USD");
-$money2 = Money::fromString('154', "EUR");
-$money3 = Money::fromString('12', "EUR");
+$money  = new Money('10', "USD");
+$money2 = new Money('154', "EUR");
+$money3 = new Money('12', "EUR");
 
 $money = $money->add($money2);
 $money = $money->add($money3);
@@ -94,13 +93,13 @@ $formatter->format($money); //результат 132,25 £
 1) Стандартная установка через composer
 
 ```
-php composer.phar require --prefer-dist skeeks/cms-module-money "*"
+php composer.phar require --prefer-dist skeeks/cms-money "*"
 ```
 
 or add
 
 ```
-"skeeks/cms-module-money": "*"
+"skeeks/cms-money": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -109,7 +108,7 @@ to the require section of your `composer.json` file.
 2) Установка миграций
 
 ```
- php yii migrate --migrationPath=vendor/skeeks/cms-module-money/migrations
+ php yii migrate --migrationPath=vendor/skeeks/cms-money/migrations
 ```
 
 # Примеры и использование
@@ -149,25 +148,6 @@ print $m->getAmount();
 The code above produces the output shown below:
 
     1234
-
-#### Using a Currency-specific subclass of Money
-
-```php
-use skeeks\cms\modules\money\EUR;
-
-// Create Money object that represents 1 EUR
-$m = new EUR(100);
-
-// Access the Money object's monetary value
-print $m->getAmount();
-```
-
-The code above produces the output shown below:
-
-    100
-
-Please note that there is no subclass of `Money` that is specific to Turkish Lira as `TRY` is not a valid class name in PHP.
-
 #### Formatting a Money object using PHP's built-in NumberFormatter
 
 ```php
