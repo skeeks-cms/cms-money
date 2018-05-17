@@ -190,6 +190,10 @@ class Money extends BaseObject
         $currencyTo = Currency::getInstance($currencyTo);
         $currency = $this->_currency;
 
+        if ($currency->isSame($currencyTo)) {
+            return $this;
+        }
+
         if ($crossCourse = $currency->getCrossCourse($currencyTo)) {
             $this->mul($crossCourse);
             $this->_currency = $currencyTo;
