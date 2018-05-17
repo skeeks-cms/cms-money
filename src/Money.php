@@ -162,7 +162,7 @@ class Money extends BaseObject
     public function mul($number)
     {
         if (function_exists("bcmul")) {
-            $this->_amount = bcsub($this->amount, (string) $number);
+            $this->_amount = bcmul($this->amount, (string) $number);
         } else {
             $this->setAmount(
                 ((float)$this->amount * (float)$number)
