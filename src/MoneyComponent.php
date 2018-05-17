@@ -9,6 +9,7 @@
 namespace skeeks\cms\money;
 
 use skeeks\cms\base\Component;
+use yii\helpers\ArrayHelper;
 
 /**
  * @property string currencyCode;
@@ -32,8 +33,23 @@ class MoneyComponent extends Component
      */
     public $baseCurrencyCode = "RUB";
 
-    public $currenciesData = [
+    /**
+     * Справочник данных по валютам
+     *
+     * @var array
+     */
+    public $baseCurrenciesData = [];
 
-    ];
+    /**
+     *
+     */
+    public function init()
+    {
+        parent::init();
+
+        if ($this->baseCurrenciesData) {
+            $this->baseCurrenciesData = ArrayHelper::merge(Currency::$currencies, $this->baseCurrenciesData);
+        }
+    }
 
 }

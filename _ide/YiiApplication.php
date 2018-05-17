@@ -8,9 +8,11 @@
 
 namespace yii\web;
 
-use skeeks\cms\money\MoneyComponentt;
+use skeeks\cms\money\MoneyComponent;
 
 /**
+ * @property MoneyComponent $money
+ *
  * @author Semenov Alexander <semenov@skeeks.com>
  */
 class Application
