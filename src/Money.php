@@ -79,7 +79,7 @@ class Money extends BaseObject
      */
     public function __toString()
     {
-        return (string)$this->format();
+        return (string)$this->formatConverted();
     }
 
     /**
@@ -90,6 +90,18 @@ class Money extends BaseObject
      */
     public function format($options = [], $textOptions = [])
     {
+        return \Yii::$app->formatter->asCurrency($this->_amount, $this->_currency->code, $options, $textOptions);
+    }
+
+    /**
+     * @param array $options
+     * @param array $textOptions
+     * @return string
+     */
+    public function formatConverted($options = [], $textOptions = [])
+    {
+        $this->convertToCurrency(\Yii::$app->money->currencyCode);
+
         return \Yii::$app->formatter->asCurrency($this->_amount, $this->_currency->code, $options, $textOptions);
     }
 
