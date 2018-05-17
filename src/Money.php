@@ -119,7 +119,7 @@ class Money extends BaseObject
      */
     public function subtract(self $other)
     {
-        return $this->sub($number);
+        return $this->sub($other);
     }
 
 
@@ -142,15 +142,6 @@ class Money extends BaseObject
         return $this;
     }
 
-
-    /**
-     * @param Money $other
-     * @return $this
-     */
-    public function subtract(self $other)
-    {
-        return $this->sub($number);
-    }
 
     /**
      * @param $number
