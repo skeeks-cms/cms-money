@@ -87,11 +87,11 @@ class MoneyCurrency extends \skeeks\cms\base\ActiveRecord
      */
     static public function getByCode($code)
     {
-        if (!isset(self::$models[$code])) {
-            self::$models[$code] = self::find()->where(['code' => $code])->one();
+        if (!isset(static::$models[$code])) {
+            static::$models[$code] = static::find()->where(['code' => $code])->one();
         }
 
-        return self::$models[$code];
+        return static::$models[$code];
     }
 
 }
