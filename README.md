@@ -9,13 +9,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist skeeks/cms-module-money "*"
+php composer.phar require --prefer-dist skeeks/cms-money "*"
 ```
 
 or add
 
 ```
-"skeeks/cms-module-money": "*"
+"skeeks/cms-money": "*"
 ```
 
 Configuration app
@@ -26,7 +26,7 @@ Configuration app
 'components' =>
 [
  'money' => [
-     'class'         => 'skeeks\cms\money\components\money\Money',
+     'class'         => 'skeeks\cms\money\MoneyComponent',
  ],
  'i18n' => [
      'translations' =>
@@ -40,25 +40,17 @@ Configuration app
          ]
      ]
  ],
-],
-'modules' =>
-[
+ ],
+ 'modules' =>
+ [
     'money' => [
         'class'         => 'skeeks\cms\money\Module',
     ]
-]
+ ]
 
 ```
 
-##Links
-* [Web site](http://en.cms.skeeks.com)
-* [Web site (rus)](http://cms.skeeks.com)
-* [Author](http://skeeks.com)
-* [ChangeLog](https://github.com/skeeks-cms/cms-module-money/blob/master/CHANGELOG.md)
-
-
-
-Игформация о модуле
+Info
 -------------------
 
 Модуль для работы с деньгами и валютой.
@@ -344,10 +336,15 @@ to calculate 21% of a monetary value represented by a Money object) instead.
 
 
 
+Links
+-------
+* [Web site](https://cms.skeeks.com)
+* [Author](https://skeeks.com)
+* [ChangeLog](https://github.com/skeeks-cms/cms-money/blob/master/CHANGELOG.md)
 
-[Страница на SkeekS CMS Marketplace](http://marketplace.cms.skeeks.com/solutions/instrumentyi/razrabotchiku/13-modul-valyutyi_dengi)
+___
 
+> [![skeeks!](https://skeeks.com/img/logo/logo-no-title-80px.png)](https://skeeks.com)  
+<i>SkeekS CMS (Yii2) — quickly, easily and effectively!</i>  
+[skeeks.com](https://skeeks.com) | [cms.skeeks.com](https://cms.skeeks.com)
 
-> [![skeeks!](https://gravatar.com/userimage/74431132/13d04d83218593564422770b616e5622.jpg)](http://skeeks.com)  
-<i>SkeekS CMS (Yii2) — быстро, просто, эффективно!</i>  
-[skeeks.com](http://skeeks.com) | [cms.skeeks.com](http://cms.skeeks.com) | [marketplace.cms.skeeks.com](http://marketplace.cms.skeeks.com)
