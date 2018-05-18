@@ -8,7 +8,7 @@
 return [
     'modules' => [
         'money' => [
-            'class' => 'skeeks\cms\money\MoneyModule',
+            'class' => 'skeeks\cms\money\ModuleMoney',
         ],
     ],
 ];

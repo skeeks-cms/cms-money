@@ -11,7 +11,7 @@ namespace skeeks\cms\money;
 /**
  * @author Semenov Alexander <semenov@skeeks.com>
  */
-class MoneyModule extends \yii\base\Module
+class ModuleMoney extends \yii\base\Module
 {
     public $controllerNamespace = 'skeeks\cms\money\controllers';
 }
