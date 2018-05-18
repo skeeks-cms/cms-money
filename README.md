@@ -1,6 +1,35 @@
 Module for working with money and currency
 ===================================
 
+Info
+-------------------
+
+Модуль для работы с деньгами и валютой.
+
+Основная работа была в том, чтобы появилась некоторая прозрачная работа с деньгами.
+Типичны пример, который мы прозрачно решаем в этой библиотеке.
+(10$ + 154руб + 12$) = рузальтат нужно показать в GBP, для de_DE локали
+
+Example:
+
+```
+use \skeeks\cms\money\Money;
+
+$money  = new Money('10', "USD");
+$money2 = new Money('154', "EUR");
+$money3 = new Money('12', "EUR");
+
+$money = $money->add($money2);
+$money = $money->add($money3);
+
+$money = $money->convertToCurrency('GBP');
+
+$formatter = new IntlFormatter('de_DE');
+$formatter->format($money); //результат 132,25 £
+
+```
+
+
 Installation
 ------------
 
@@ -18,7 +47,13 @@ or add
 "skeeks/cms-money": "*"
 ```
 
-Configuration app
+Install migrations
+
+```
+php yii migrate --migrationPath=vendor/skeeks/cms-money/migrations
+```
+
+Configuration
 ----------
 
 ```php
@@ -48,59 +83,6 @@ Configuration app
     ]
  ]
 
-```
-
-Info
--------------------
-
-Модуль для работы с деньгами и валютой.
-За основу данного модуля, была взята библиотека https://github.com/sebastianbergmann/money, но ее пришлось изрядно допилить. Поэтому в чистом виде она не была подключена.
-
-Основная работа была в том, чтобы появилась некоторая прозрачная работа с деньгами.
-Типичны пример, который мы прозрачно решаем в этой библиотеке.
-(10$ + 154руб + 12$) = рузальтат нужно показать в GBP, для de_DE локали
-
-Сразу пример:
-
-```
-use \skeeks\cms\money\Money;
-
-$money  = new Money('10', "USD");
-$money2 = new Money('154', "EUR");
-$money3 = new Money('12', "EUR");
-
-$money = $money->add($money2);
-$money = $money->add($money3);
-
-$money = $money->convertToCurrency('GBP');
-
-$formatter = new IntlFormatter('de_DE');
-$formatter->format($money); //результат 132,25 £
-
-```
-
-Установка
-------------
-
-1) Стандартная установка через composer
-
-```
-php composer.phar require --prefer-dist skeeks/cms-money "*"
-```
-
-or add
-
-```
-"skeeks/cms-money": "*"
-```
-
-to the require section of your `composer.json` file.
-
-
-2) Установка миграций
-
-```
- php yii migrate --migrationPath=vendor/skeeks/cms-money/migrations
 ```
 
 # Примеры и использование
