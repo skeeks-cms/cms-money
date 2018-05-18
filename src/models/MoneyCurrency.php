@@ -96,4 +96,9 @@ class MoneyCurrency extends \skeeks\cms\base\ActiveRecord
         return static::$models[$code];
     }
 
+    public function asText()
+    {
+        return $this->code;
+    }
+
 }
