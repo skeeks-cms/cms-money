@@ -15,17 +15,20 @@ Example:
 ```
 use \skeeks\cms\money\Money;
 
-$money  = new Money('10', "USD");
+$result  = new Money('0', "RUB");
+
+$money1  = new Money('10', "USD");
 $money2 = new Money('154', "EUR");
-$money3 = new Money('12', "EUR");
+$money3 = new Money('12', "RUB");
 
-$money = $money->add($money2);
-$money = $money->add($money3);
+$result->add($money1)->add($money2)->add($money3);
 
-$money = $money->convertToCurrency('GBP');
+$result->convertToCurrency('GBP');
+
+echo (string) $result; // 
+echo $result->format();
 
 $formatter = new IntlFormatter('de_DE');
-$formatter->format($money); //результат 132,25 £
 
 ```
 
