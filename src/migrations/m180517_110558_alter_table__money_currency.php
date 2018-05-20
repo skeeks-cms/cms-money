@@ -24,8 +24,6 @@ class m180517_110558_alter_table__money_currency extends Migration
         $this->dropColumn('{{%money_currency}}', 'name_full');
         $this->dropColumn('{{%money_currency}}', 'active');
 
-        $this->addColumn('{{%money_currency}}', 'is_active', $this->integer(1)->notNull()->defaultValue(0));
-
         return true;
     }
 
