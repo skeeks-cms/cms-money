@@ -1297,4 +1297,14 @@ class Currency extends BaseObject
 
         return 1;
     }
+
+
+    /**
+     * @return array|string
+     * @deprecated
+     */
+    public function getCurrencyCode()
+    {
+        return $this->code;
+    }
 }

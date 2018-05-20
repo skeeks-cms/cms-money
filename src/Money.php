@@ -16,7 +16,7 @@ use yii\base\BaseObject;
  *
  * @author Semenov Alexander <semenov@skeeks.com>
  */
-class Money extends BaseObject
+class Money extends BaseObject implements \JsonSerializable
 {
     /**
      * @var string
@@ -201,5 +201,28 @@ class Money extends BaseObject
         } else {
             throw new InvalidArgumentException(\Yii::t('skeeks/money', 'Unable to get the cross rate for the currency') . ' ' . $currencyTo->code);
         }
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @link   http://php.net/manual/en/jsonserializable.jsonserialize.php
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'amount' => $this->amount,
+            'currency' => $this->currency->code
+        ];
+    }
+
+    /**
+     * @return string
+     * @deprecated
+     */
+    public function getValue()
+    {
+        return $this->amount;
     }
 }

@@ -9,6 +9,7 @@
 namespace skeeks\cms\money;
 
 use skeeks\cms\base\Component;
+use skeeks\cms\money\models\MoneyCurrency;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -59,5 +60,14 @@ class MoneyComponent extends Component
     {
         return new Money('0', $this->currencyCode);
     }
+
+    /**
+     * @return array|MoneyCurrency[]
+     */
+    public function getActiveCurrencies()
+    {
+        return MoneyCurrency::find()->where(['is_active' => 1])->all();
+    }
+
 
 }
