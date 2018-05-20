@@ -52,4 +52,12 @@ class MoneyComponent extends Component
         }
     }
 
+    /**
+     * @return Money
+     */
+    public function newMoney()
+    {
+        return new Money('0', $this->currencyCode);
+    }
+
 }
