@@ -42,8 +42,8 @@ class AdminCurrencyController extends BackendModelStandartController
                 ],
                 'grid'    => [
                     'defaultOrder'   => [
-                        'is_active'   => SORT_DESC,
-                        'priority' => SORT_ASC,
+                        'is_active' => SORT_DESC,
+                        'priority'  => SORT_ASC,
                     ],
                     'visibleColumns' => [
                         'checkbox',
@@ -57,9 +57,9 @@ class AdminCurrencyController extends BackendModelStandartController
                     ],
                     'columns'        => [
                         'is_active' => [
-                            'class' => BooleanColumn::class,
+                            'class'      => BooleanColumn::class,
                             'falseValue' => 0,
-                            'trueValue' => 1,
+                            'trueValue'  => 1,
                         ],
                     ],
                 ],
@@ -74,15 +74,15 @@ class AdminCurrencyController extends BackendModelStandartController
             ],
 
             "activate-multi" => [
-                'class' => BackendModelMultiActivateAction::class,
+                'class'     => BackendModelMultiActivateAction::class,
                 'attribute' => 'is_active',
-                'value' => 1
+                'value'     => 1,
             ],
 
             "deactivate-multi" => [
-                'class' => BackendModelMultiDeactivateAction::class,
+                'class'     => BackendModelMultiDeactivateAction::class,
                 'attribute' => 'is_active',
-                'value' => 0
+                'value'     => 0,
             ],
 
 
@@ -108,8 +108,8 @@ class AdminCurrencyController extends BackendModelStandartController
         return [
             'code',
             'name',
-            'is_active'   => [
-                'class'      => BoolField::class,
+            'is_active' => [
+                'class' => BoolField::class,
             ],
             'course',
             'priority',
@@ -122,11 +122,11 @@ class AdminCurrencyController extends BackendModelStandartController
             foreach (\skeeks\modules\cms\money\Currency::$currencies as $code => $data) {
                 $currency = new \skeeks\modules\cms\money\Currency($code);
 
-                if (!$currencyModel = Currency::find()->where(['code' => $code])->one()) {
-                    $currencyModel = new Currency([
-                        'code' => $code,
+                if (!$currencyModel = MoneyCurrency::find()->where(['code' => $code])->one()) {
+                    $currencyModel = new MoneyCurrency([
+                        'code'      => $code,
                         'is_active' => 0,
-                        'name' => $currency->getDisplayName(),
+                        'name'      => $currency->getDisplayName(),
                     ]);
 
                     $currencyModel->save(false);
@@ -135,9 +135,7 @@ class AdminCurrencyController extends BackendModelStandartController
                         $currencyModel->name = $currency->getDisplayName();
                     }
 
-                    if (!$currencyModel->name_full) {
-                        $currencyModel->name_full = $currency->getDisplayName();
-                    }
+
                     $currencyModel->save(false);
                 }
             }
