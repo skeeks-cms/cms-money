@@ -55,6 +55,7 @@ class MoneyComponent extends Component
 
     /**
      * @return Money
+     * @deprecated
      */
     public function newMoney()
     {
@@ -63,11 +64,21 @@ class MoneyComponent extends Component
 
     /**
      * @return array|MoneyCurrency[]
+     * @deprecated
      */
     public function getActiveCurrencies()
     {
         return MoneyCurrency::find()->where(['is_active' => 1])->all();
     }
 
+    /**
+     * @param $money
+     * @return string
+     * @deprecated
+     */
+    public function convertAndFormat($money)
+    {
+        return (string) $money;
+    }
 
 }
