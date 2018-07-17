@@ -50,6 +50,8 @@ class MoneyComponent extends Component
 
         if ($this->baseCurrenciesData) {
             $this->baseCurrenciesData = ArrayHelper::merge(Currency::$currencies, $this->baseCurrenciesData);
+        } else {
+            $this->baseCurrenciesData = Currency::$currencies;
         }
     }
 

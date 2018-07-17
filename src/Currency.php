@@ -1259,10 +1259,10 @@ class Currency extends BaseObject
     public function getSubUnit()
     {
         if ($this->model) {
-            return (integer)$this->model->sub_unit;
+            //return (integer)$this->model->sub_unit;
         }
 
-        return (integer)ArrayHelper::getValue($this->_baseData, 'sub_unit');
+        return (integer) ArrayHelper::getValue($this->_baseData, 'sub_unit');
     }
 
     /**
