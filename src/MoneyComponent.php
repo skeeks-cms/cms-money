@@ -60,13 +60,15 @@ class MoneyComponent extends Component
      * The value is converted to the current currencyCode currency.
      *
      * @param Money $money
+     * @param array $options
+     * @param array $textOptions
      * @return string
      * @throws \yii\base\InvalidConfigException
      */
-    public function convertAndFormat(Money $money)
+    public function convertAndFormat(Money $money, $options = [], $textOptions = [])
     {
         $money->convertToCurrency($this->currencyCode);
-        return $this->format($money);
+        return $this->format($money, $options, $textOptions);
     }
 
     /**
