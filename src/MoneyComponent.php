@@ -26,14 +26,7 @@ class MoneyComponent extends Component
     {
         return \Yii::$app->formatter->currencyCode;
     }
-
-    /**
-     * Базовая валюта относительно которой считается курс
-     *
-     * @var string
-     */
-    public $baseCurrencyCode = "RUB";
-
+    
     /**
      * Справочник данных по валютам
      *
@@ -55,6 +48,50 @@ class MoneyComponent extends Component
         }
     }
 
+
+    /**
+     *
+     * Возвращает отформатированную строку цены.
+     * При этом значение конвертируется в текущую валюту currencyCode.
+     *
+     * ***
+     *
+     * Returns a formatted price string.
+     * The value is converted to the current currencyCode currency.
+     *
+     * @param Money $money
+     * @return string
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function convertAndFormat(Money $money)
+    {
+        $money->convertToCurrency($this->currencyCode);
+        return $this->format($money);
+    }
+
+    /**
+     * Возвращает отформатированную строку цены.
+     *
+     * ***
+     *
+     * Returns a formatted price string.
+     *
+     * @param Money $money
+     * @param array $options
+     * @param array $textOptions
+     * @return string
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function format(Money $money, $options = [], $textOptions = [])
+    {
+        return \Yii::$app->formatter->asCurrency($money->amount, $money->currency->code, $options, $textOptions);
+    }
+
+
+
+
+    
+    
     /**
      * @return Money
      * @deprecated
@@ -63,7 +100,7 @@ class MoneyComponent extends Component
     {
         return new Money('0', $this->currencyCode);
     }
-
+    
     /**
      * @return array|MoneyCurrency[]
      * @deprecated
@@ -72,15 +109,12 @@ class MoneyComponent extends Component
     {
         return MoneyCurrency::find()->where(['is_active' => 1])->all();
     }
-
+    
     /**
-     * @param $money
-     * @return string
-     * @deprecated
+     * Базовая валюта относительно которой считается курс
+     * @deprecated 
+     * @var string
      */
-    public function convertAndFormat($money)
-    {
-        return (string) $money;
-    }
+    public $baseCurrencyCode = "RUB";
 
 }

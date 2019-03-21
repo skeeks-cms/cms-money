@@ -90,7 +90,7 @@ class Money extends BaseObject implements \JsonSerializable
      */
     public function format($options = [], $textOptions = [])
     {
-        return \Yii::$app->formatter->asCurrency($this->_amount, $this->_currency->code, $options, $textOptions);
+        return \Yii::$app->money->format($this, $options, $textOptions);
     }
 
     /**
@@ -100,9 +100,7 @@ class Money extends BaseObject implements \JsonSerializable
      */
     public function formatConverted($options = [], $textOptions = [])
     {
-        $this->convertToCurrency(\Yii::$app->money->currencyCode);
-
-        return \Yii::$app->formatter->asCurrency($this->_amount, $this->_currency->code, $options, $textOptions);
+        return \Yii::$app->money->convertAndFormat($this, $options, $textOptions);
     }
 
     /**
