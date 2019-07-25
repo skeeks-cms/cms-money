@@ -121,7 +121,7 @@ class AdminCurrencyController extends BackendModelStandartController
     {
         if (\Yii::$app->request->isPost) {
             foreach (Currency::$currencies as $code => $data) {
-                $currency = new Currency($code);MoneyComponent
+                $currency = new Currency($code);
 
                 if (!$currencyModel = MoneyCurrency::find()->where(['code' => $code])->one()) {
                     $currencyModel = new MoneyCurrency([
