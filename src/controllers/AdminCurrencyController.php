@@ -13,6 +13,7 @@ use skeeks\cms\actions\backend\BackendModelMultiDeactivateAction;
 use skeeks\cms\backend\BackendAction;
 use skeeks\cms\backend\controllers\BackendModelStandartController;
 use skeeks\cms\grid\BooleanColumn;
+use skeeks\cms\money\Currency;
 use skeeks\cms\money\models\MoneyCurrency;
 use skeeks\yii2\form\fields\BoolField;
 use yii\helpers\ArrayHelper;
@@ -119,20 +120,20 @@ class AdminCurrencyController extends BackendModelStandartController
     public function actionUpdateAll()
     {
         if (\Yii::$app->request->isPost) {
-            foreach (\skeeks\modules\cms\money\Currency::$currencies as $code => $data) {
-                $currency = new \skeeks\modules\cms\money\Currency($code);
+            foreach (Currency::$currencies as $code => $data) {
+                $currency = new Currency($code);MoneyComponent
 
                 if (!$currencyModel = MoneyCurrency::find()->where(['code' => $code])->one()) {
                     $currencyModel = new MoneyCurrency([
                         'code'      => $code,
                         'is_active' => 0,
-                        'name'      => $currency->getDisplayName(),
+                        'name'      => $currency->name,
                     ]);
 
                     $currencyModel->save(false);
                 } else {
                     if (!$currencyModel->name) {
-                        $currencyModel->name = $currency->getDisplayName();
+                        $currencyModel->name = $currency->name;
                     }
 
 
