@@ -17,6 +17,7 @@ use skeeks\cms\money\Currency;
 use skeeks\cms\money\models\MoneyCurrency;
 use skeeks\yii2\form\fields\BoolField;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 /**
  * @author Semenov Alexander <semenov@skeeks.com>
  */
@@ -25,8 +26,10 @@ class AdminCurrencyController extends BackendModelStandartController
     public function init()
     {
         $this->name = \Yii::t('skeeks/money', "Currency management");
-        $this->modelShowAttribute = "id";
+        $this->modelShowAttribute = "asText";
         $this->modelClassName = MoneyCurrency::class;
+
+        $this->generateAccessActions = false;
 
         parent::init();
     }
@@ -49,14 +52,32 @@ class AdminCurrencyController extends BackendModelStandartController
                     'visibleColumns' => [
                         'checkbox',
                         'actions',
-                        'id',
+
+                        'custom',
+
+                        /*'id',
                         'code',
-                        'name',
+                        'name',*/
+
                         'course',
                         'is_active',
                         'priority',
+
                     ],
                     'columns'        => [
+                        'custom'       => [
+                            'attribute' => 'name',
+                            'format' => 'raw',
+                            'value' => function (MoneyCurrency $model) {
+
+                                $data = [];
+                                $data[] = Html::a($model->asText, "#", ['class' => 'sx-trigger-action']);
+                                $info = implode("<br />", $data);
+
+                                return $info;
+                            }
+                        ],
+
                         'is_active' => [
                             'class'      => BooleanColumn::class,
                             'falseValue' => 0,

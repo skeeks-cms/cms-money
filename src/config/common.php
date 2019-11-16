@@ -38,5 +38,21 @@ return [
                 ],
             ],
         ],
+
+        'authManager' => [
+            'config' => [
+                'roles' => [
+                    [
+                        'name'  => \skeeks\cms\rbac\CmsManager::ROLE_ADMIN,
+                        'child' => [
+                            //Есть доступ к системе администрирования
+                            'permissions' => [
+                                "money/admin-currency",
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
     ],
 ];

@@ -20,5 +20,5 @@ use yii\grid\GridView;
     'method' => 'post'
 ]); ?>
     <p><?= \Yii::t('skeeks/money', 'Filling database in all possible currencies'); ?></p>
-    <button class="btn-primary"><?= \Yii::t('skeeks/money', 'Get data'); ?></button>
+    <button class="btn btn-primary"><?= \Yii::t('skeeks/money', 'Get data'); ?></button>
 <? \skeeks\cms\modules\admin\widgets\ActiveForm::end(); ?>
