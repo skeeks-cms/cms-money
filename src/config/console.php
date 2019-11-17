@@ -12,4 +12,12 @@ return [
             'controllerNamespace' => 'skeeks\cms\money\console\controllers',
         ],
     ],
+    
+    'controllerMap' => [
+        'migrate' => [
+            'migrationPath' => [
+                '@skeeks/cms/money/migrations',
+            ],
+        ],
+    ]
 ];
