@@ -12,6 +12,7 @@ use skeeks\cms\actions\backend\BackendModelMultiActivateAction;
 use skeeks\cms\actions\backend\BackendModelMultiDeactivateAction;
 use skeeks\cms\backend\BackendAction;
 use skeeks\cms\backend\controllers\BackendModelStandartController;
+use skeeks\cms\backend\grid\DefaultActionColumn;
 use skeeks\cms\grid\BooleanColumn;
 use skeeks\cms\money\Currency;
 use skeeks\cms\money\models\MoneyCurrency;
@@ -67,15 +68,7 @@ class AdminCurrencyController extends BackendModelStandartController
                     'columns'        => [
                         'custom'       => [
                             'attribute' => 'name',
-                            'format' => 'raw',
-                            'value' => function (MoneyCurrency $model) {
-
-                                $data = [];
-                                $data[] = Html::a($model->asText, "#", ['class' => 'sx-trigger-action']);
-                                $info = implode("<br />", $data);
-
-                                return $info;
-                            }
+                            'class' => DefaultActionColumn::class,
                         ],
 
                         'is_active' => [
