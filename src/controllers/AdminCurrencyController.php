@@ -18,7 +18,6 @@ use skeeks\cms\money\Currency;
 use skeeks\cms\money\models\MoneyCurrency;
 use skeeks\yii2\form\fields\BoolField;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 /**
  * @author Semenov Alexander <semenov@skeeks.com>
  */
@@ -66,9 +65,10 @@ class AdminCurrencyController extends BackendModelStandartController
 
                     ],
                     'columns'        => [
-                        'custom'       => [
+                        'custom' => [
                             'attribute' => 'name',
-                            'class' => DefaultActionColumn::class,
+                            'viewAttribute' => 'asText',
+                            'class'     => DefaultActionColumn::class,
                         ],
 
                         'is_active' => [
