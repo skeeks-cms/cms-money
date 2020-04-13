@@ -11,7 +11,7 @@ return [
             'menu' => [
                 'data' => [
 
-                    'other' => [
+                    'settings' => [
                         'items' => [
                             [
                                 "name"    => ['skeeks/money', 'Currencies'],
@@ -25,7 +25,7 @@ return [
                                         "image"   => ['\skeeks\cms\money\assets\Asset', 'images/money_16_16.png'],
                                     ],
 
-                                    [
+                                    /*[
                                         "name"          => ['skeeks/money', 'Settings'],
                                         "url"            => [
                                             "cms/admin-settings",
@@ -35,7 +35,7 @@ return [
                                         "activeCallback" => function ($adminMenuItem) {
                                             return (bool)(\Yii::$app->request->getUrl() == $adminMenuItem->getUrl());
                                         },
-                                    ],
+                                    ],*/
                                 ],
                             ],
                         ],
