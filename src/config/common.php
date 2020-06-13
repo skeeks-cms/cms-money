@@ -25,9 +25,9 @@ return [
             'class' => 'skeeks\cms\money\MoneyComponent',
         ],
 
-        'formatter' => [
+        /*'formatter' => [
             'currencyCode' => 'RUB',
-        ],
+        ],*/
 
         'cmsAgent' => [
             'commands' => [

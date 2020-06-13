@@ -8,8 +8,11 @@
 
 namespace skeeks\cms\money;
 
+use skeeks\cms\backend\widgets\ActiveFormBackend;
 use skeeks\cms\base\Component;
+use skeeks\cms\money\assets\Asset;
 use skeeks\cms\money\models\MoneyCurrency;
+use skeeks\yii2\form\fields\SelectField;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -19,6 +22,89 @@ use yii\helpers\ArrayHelper;
  */
 class MoneyComponent extends Component
 {
+    /**
+     * Базовая валюта относительно которой считается курс
+     * @var string
+     */
+    public $currency_code = "RUB";
+
+    /**
+     * @var string
+     */
+    public $currency_symbol = "";//"р.";
+
+    /**
+     * @return array
+     */
+    static public function descriptorConfig()
+    {
+        return array_merge(parent::descriptorConfig(), [
+            'name' => \Yii::t('skeeks/money', 'Currencies'),
+            'image' => [
+                Asset::class, 'icons/money-bag.png'
+            ],
+        ]);
+    }
+
+    /**
+     * @return ActiveFormBackend|\yii\widgets\ActiveForm
+     */
+    public function beginConfigForm()
+    {
+        return ActiveFormBackend::begin();
+    }
+
+    /**
+     * @return array
+     */
+    public function rules()
+    {
+        return ArrayHelper::merge(parent::rules(), [
+            ['currency_code', 'string'],
+            ['currency_symbol', 'string']
+        ]);
+    }
+
+    /**
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return ArrayHelper::merge(parent::attributeLabels(), [
+            'currency_code'       => \Yii::t('skeeks/money', 'Валюта по умолчанию'),
+            'currency_symbol'       => \Yii::t('skeeks/money', 'Символ валюты'),
+        ]);
+    }
+
+    /**
+     * @return array
+     */
+    public function attributeHints()
+    {
+        return ArrayHelper::merge(parent::attributeLabels(), [
+            'currency_code'       => \Yii::t('skeeks/money', 'Валюта в которой будут выводиться цены на сайте.'),
+            'currency_symbol'       => \Yii::t('skeeks/money', 'Символ валюты, который будет отображаться у выбранной валюты. Если не задан, будет выводится автоматически.'),
+        ]);
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfigFormFields()
+    {
+        return [
+            'currency_code' => [
+                'class' => SelectField::class,
+                'items' => ArrayHelper::map(
+                    MoneyCurrency::find()->all(),
+                    'code',
+                    'asText'
+                )
+            ],
+            'currency_symbol'
+        ];
+    }
+
     /**
      * @return string
      */
@@ -45,6 +131,13 @@ class MoneyComponent extends Component
             $this->baseCurrenciesData = ArrayHelper::merge(Currency::$currencies, $this->baseCurrenciesData);
         } else {
             $this->baseCurrenciesData = Currency::$currencies;
+        }
+
+        \Yii::$app->formatter->currencyCode = $this->currency_code;
+        if ($this->currency_symbol) {
+            \Yii::$app->formatter->numberFormatterSymbols = ArrayHelper::merge(\Yii::$app->formatter->numberFormatterSymbols, [
+                \NumberFormatter::CURRENCY_SYMBOL => $this->currency_symbol
+            ]);
         }
     }
 
@@ -112,11 +205,6 @@ class MoneyComponent extends Component
         return MoneyCurrency::find()->where(['is_active' => 1])->all();
     }
     
-    /**
-     * Базовая валюта относительно которой считается курс
-     * @deprecated 
-     * @var string
-     */
-    public $baseCurrencyCode = "RUB";
+
 
 }
