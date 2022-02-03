@@ -210,7 +210,7 @@ class Money extends BaseObject implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'amount' => $this->amount,
+            'amount' => (float) $this->amount,
             'currency' => $this->currency->code
         ];
     }
