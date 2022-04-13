@@ -14,6 +14,7 @@ use skeeks\cms\money\assets\Asset;
 use skeeks\cms\money\models\MoneyCurrency;
 use skeeks\yii2\form\fields\SelectField;
 use yii\helpers\ArrayHelper;
+use yii\httpclient\Client;
 
 /**
  * @property string currencyCode;
@@ -139,6 +140,39 @@ class MoneyComponent extends Component
                 \NumberFormatter::CURRENCY_SYMBOL => $this->currency_symbol
             ]);
         }
+    }
+
+    public function processUpdateCourses()
+    {
+        $url = "https://www.cbr.ru/scripts/XML_daily.asp?date_req=" . \Yii::$app->formatter->asDate(time(), "php:d-m-Y");
+        $request = (new Client())->createRequest()
+            ->setOptions([
+                'timeout'      => 20,
+                'maxRedirects' => 2,
+            ]);
+
+        $request->setUrl($url);
+        $response = $request->send();
+        if (!$response->isOk) {
+            throw new Exception("Файл недоступен: ".$url);
+        }
+        
+        $data = ArrayHelper::getValue($response->data, 'Valute');
+        $data = ArrayHelper::map($data, "CharCode", "Value");
+        foreach ($data as $code => $value)
+        {
+            $value = str_replace(",", ".", $value);
+
+            /**
+             * @var $currency MoneyCurrency
+             */
+            $currency = MoneyCurrency::find()->andWhere(['code' => $code])->one();
+            if ($currency) {
+                $currency->course = (float) $value;
+                $currency->update(false, ['course']);
+            }
+        }
+        
     }
 
 
