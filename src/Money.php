@@ -211,7 +211,8 @@ class Money extends BaseObject implements \JsonSerializable
     {
         return [
             'amount' => (float) $this->amount,
-            'currency' => $this->currency->code
+            'currency' => $this->currency->code,
+            'convertAndFormat' => \Yii::$app->money->convertAndFormat($this),
         ];
     }
 
