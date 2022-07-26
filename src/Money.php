@@ -211,7 +211,13 @@ class Money extends BaseObject implements \JsonSerializable
     {
         return [
             'amount' => (float) $this->amount,
+            'amountFormat' => \Yii::$app->formatter->asDecimal($this->amount),
+
+            'amountRound' => (float) round($this->amount, 2),
+            'amountRoundFormat' => \Yii::$app->formatter->asDecimal((float) round($this->amount, 2)),
+
             'currency' => $this->currency->code,
+            'convertSymbol' => $this->currency->symbol,
             'convertAndFormat' => \Yii::$app->money->convertAndFormat($this),
         ];
     }

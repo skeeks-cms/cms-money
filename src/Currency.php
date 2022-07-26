@@ -21,6 +21,7 @@ use yii\helpers\ArrayHelper;
  * @property integer       subUnit
  *
  * @property float         baseCourse
+ * @property string        symbol
  *
  * new Currency('RUB');
  *
@@ -1262,7 +1263,7 @@ class Currency extends BaseObject
             //return (integer)$this->model->sub_unit;
         }
 
-        return (integer) ArrayHelper::getValue($this->_baseData, 'sub_unit');
+        return (integer)ArrayHelper::getValue($this->_baseData, 'sub_unit');
     }
 
     /**
@@ -1306,5 +1307,19 @@ class Currency extends BaseObject
     public function getCurrencyCode()
     {
         return $this->code;
+    }
+
+    /**
+     * @param $locale
+     * @return false|string
+     */
+    function getSymbol($locale = '')
+    {
+        if (!$locale) {
+            $locale = \Yii::$app->formatter->locale;
+        }
+
+        $formatter = new \NumberFormatter($locale.'@currency='.$this->code, \NumberFormatter::CURRENCY);
+        return $formatter->getSymbol(\NumberFormatter::CURRENCY_SYMBOL);
     }
 }
