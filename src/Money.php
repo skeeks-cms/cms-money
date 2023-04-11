@@ -207,14 +207,14 @@ class Money extends BaseObject implements \JsonSerializable
      * @return mixed data which can be serialized by <b>json_encode</b>,
      * @link   http://php.net/manual/en/jsonserializable.jsonserialize.php
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : mixed
     {
         return [
             'amount' => (float) $this->amount,
             'amountFormat' => \Yii::$app->formatter->asDecimal($this->amount),
 
-            'amountRound' => (float) round($this->amount, 2),
-            'amountRoundFormat' => \Yii::$app->formatter->asDecimal((float) round($this->amount, 2)),
+            'amountRound' => (float) round((float) $this->amount, 2),
+            'amountRoundFormat' => \Yii::$app->formatter->asDecimal((float) round((float) $this->amount, 2)),
 
             'currency' => $this->currency->code,
             'convertSymbol' => $this->currency->symbol,
