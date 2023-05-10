@@ -207,7 +207,7 @@ class Money extends BaseObject implements \JsonSerializable
      * @return mixed data which can be serialized by <b>json_encode</b>,
      * @link   http://php.net/manual/en/jsonserializable.jsonserialize.php
      */
-    public function jsonSerialize() : mixed
+    public function jsonSerialize() : array
     {
         return [
             'amount' => (float) $this->amount,
