@@ -16,6 +16,7 @@ use skeeks\cms\backend\grid\DefaultActionColumn;
 use skeeks\cms\grid\BooleanColumn;
 use skeeks\cms\money\Currency;
 use skeeks\cms\money\models\MoneyCurrency;
+use skeeks\cms\rbac\CmsManager;
 use skeeks\yii2\form\fields\BoolField;
 use yii\helpers\ArrayHelper;
 /**
@@ -30,12 +31,7 @@ class AdminCurrencyController extends BackendModelStandartController
         $this->modelClassName = MoneyCurrency::class;
 
         $this->generateAccessActions = false;
-        $this->accessCallback = function () {
-            if (!\Yii::$app->skeeks->site->is_default) {
-                return false;
-            }
-            return \Yii::$app->user->can($this->uniqueId);
-        };
+        $this->permissionName = CmsManager::PERMISSION_ROLE_ADMIN_ACCESS;
 
         parent::init();
     }
@@ -72,9 +68,9 @@ class AdminCurrencyController extends BackendModelStandartController
                     ],
                     'columns'        => [
                         'custom' => [
-                            'attribute' => 'name',
+                            'attribute'     => 'name',
                             'viewAttribute' => 'asText',
-                            'class'     => DefaultActionColumn::class,
+                            'class'         => DefaultActionColumn::class,
                         ],
 
                         'is_active' => [
