@@ -13,16 +13,12 @@ return [
 
                     'settings' => [
                         'items' => [
-                        'list' => [
-                        'items' => [
                             [
-                                "name" => ['skeeks/money', 'Currencies'],
+                                "name"  => ['skeeks/money', 'Currencies'],
                                 "url"   => ["money/admin-currency"],
-                                "image"   => ['\skeeks\cms\money\assets\Asset', 'images/money_16_16.png'],
+                                "image" => ['\skeeks\cms\money\assets\Asset', 'images/money_16_16.png'],
                             ],
                         ],
-                    ],
-                    ],
                     ],
                 ],
             ],
